@@ -17,10 +17,10 @@ script = ExtResource("1_g2els")
 zoom = Vector2(3, 3)
 
 [node name="hud" parent="Camera2D" unique_id=1495484935 instance=ExtResource("2_qhqgy")]
-offset_left = -192.0
-offset_top = -108.0
-offset_right = -192.0
-offset_bottom = -108.0
+offset_left = -190.0
+offset_top = -110.0
+offset_right = -190.0
+offset_bottom = -110.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=937507]
 position = Vector2(1.1920929e-07, 0)
