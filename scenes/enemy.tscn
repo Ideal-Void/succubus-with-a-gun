@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://cunred4pivvqs"]
+
+[ext_resource type="Texture2D" uid="uid://cwdarb0jqdprv" path="res://icon.svg" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://bc6k5nfl0bl6g" path="res://scripts/enemy.gd" id="1_md0e3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7p1mj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ra3w"]
+
+[node name="enemy" type="CharacterBody2D" unique_id=521173229 groups=["stompable"]]
+script = ExtResource("1_md0e3")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=830177317]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=52473352]
+position = Vector2(2.3841858e-07, 2.3841858e-07)
+scale = Vector2(0.14843753, 0.14843753)
+texture = ExtResource("1_7p1mj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1515254162]
+shape = SubResource("RectangleShape2D_md0e3")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=295715241]
+
+[node name="Hitshape" type="CollisionShape2D" parent="Hitbox" unique_id=2139408497]
+shape = SubResource("RectangleShape2D_7p1mj")
+
+[node name="LeftCast" type="ShapeCast2D" parent="." unique_id=1236930907]
+shape = SubResource("RectangleShape2D_4ra3w")
+target_position = Vector2(-3, 0)
+
+[node name="RightCast" type="ShapeCast2D" parent="." unique_id=2070616152]
+shape = SubResource("RectangleShape2D_4ra3w")
+target_position = Vector2(4, 0)
+
+[node name="Timer" type="Timer" parent="." unique_id=291715572]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

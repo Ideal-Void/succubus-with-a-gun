@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bkyv7nl6dv0es"]
+
+[ext_resource type="Texture2D" uid="uid://cwdarb0jqdprv" path="res://icon.svg" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://bt61aqgve50ha" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://bjmpngehc5r5a" path="res://scenes/ui/hud.tscn" id="2_qhqgy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+radius = 6.0
+height = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8e7i"]
+
+[node name="player" type="CharacterBody2D" unique_id=558970715 groups=["player"]]
+script = ExtResource("1_g2els")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1293853030]
+zoom = Vector2(3, 3)
+
+[node name="hud" parent="Camera2D" unique_id=1495484935 instance=ExtResource("2_qhqgy")]
+offset_left = -192.0
+offset_top = -108.0
+offset_right = -192.0
+offset_bottom = -108.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=937507]
+position = Vector2(1.1920929e-07, 0)
+scale = Vector2(0.09375, 0.25)
+texture = ExtResource("1_4flbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1643402247]
+shape = SubResource("CapsuleShape2D_onrkg")
+
+[node name="Timer" type="Timer" parent="." unique_id=1491366212]
+
+[node name="FootCollider" type="ShapeCast2D" parent="." unique_id=512133990]
+shape = SubResource("RectangleShape2D_d8e7i")
+target_position = Vector2(0, 8)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
