@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 radius = 6.0
-height = 32.0
+height = 31.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d8e7i"]
 
