@@ -1,0 +1,9 @@
+# cache
+.godot/*
+
+# exports
+*.x86*
+*.exe
+*.dmg
+*.pck
+*.sh
