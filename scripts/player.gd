@@ -33,7 +33,7 @@ func player_damage(dmg):
 		healthtext.text = str(HP)
 		CAN_HIT = false
 		timer.start(INVULN)
-	if HP < 1:
+	if HP <= 0:
 		DEAD = true
 
 func _physics_process(delta: float) -> void:
