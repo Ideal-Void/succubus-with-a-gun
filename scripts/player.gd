@@ -73,6 +73,7 @@ func _physics_process(delta: float) -> void:
 			SPEED -= ACCEL
 		MAX_SPEED = BASE_MAX_SPEED
 		JUMP_VELOCITY = BASE_JUMP_VELOCITY
+
 	if feet.is_colliding():
 		for i in feet.get_collision_count():
 			collided_with = feet.get_collider(i)
