@@ -38,7 +38,7 @@ func player_damage(dmg):
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if is_on_floor() and not DEAD:
+	if is_on_floor():
 		AIRJUMPS = MAX_AIRJUMPS
 	else:
 		velocity += get_gravity() * delta
