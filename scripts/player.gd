@@ -5,12 +5,15 @@ extends CharacterBody2D
 @onready var healthtext = $Camera2D/hud/HealthBar/Number
 @onready var feet = $FootCollider
 
-var MAX_SPEED = 200.0
+var BASE_MAX_SPEED = 200.0
+var MAX_SPEED = BASE_MAX_SPEED
+var SPRINT_MULTIPLIER = 1.5
 var MAX_AIRJUMPS = 1
 var AIRJUMPS = MAX_AIRJUMPS
 var SPEED = 0.0
 var ACCEL = 10.0
-var JUMP_VELOCITY = -300.0
+var BASE_JUMP_VELOCITY = -300.0
+var JUMP_VELOCITY = BASE_JUMP_VELOCITY
 var MAX_HP = 5
 var HP = MAX_HP
 var INVULN = 2
@@ -47,17 +50,19 @@ func _physics_process(delta: float) -> void:
 		elif AIRJUMPS > 0:
 			AIRJUMPS -= 1
 			velocity.y = JUMP_VELOCITY
-		
-	# Handle sprint.
-	if Input.is_action_pressed("player_sprint"):
-		MAX_SPEED = 300.0
-	else:
-		MAX_SPEED = 200.0
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("player_left", "player_right")
 	if direction and not DEAD:
+		# Handle sprint.
+		if Input.is_action_pressed("player_sprint"):
+			MAX_SPEED = BASE_MAX_SPEED * SPRINT_MULTIPLIER
+			JUMP_VELOCITY = BASE_JUMP_VELOCITY * SPRINT_MULTIPLIER
+		else:
+			MAX_SPEED = BASE_MAX_SPEED
+			JUMP_VELOCITY = BASE_JUMP_VELOCITY
+			
 		velocity.x = move_toward(0, direction * SPEED, SPEED)
 		if SPEED <= MAX_SPEED:
 			SPEED += ACCEL
@@ -67,7 +72,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		if SPEED > 0:
 			SPEED -= ACCEL
-			
+		MAX_SPEED = BASE_MAX_SPEED
+		JUMP_VELOCITY = BASE_JUMP_VELOCITY
 	if feet.is_colliding():
 		for i in feet.get_collision_count():
 			collided_with = feet.get_collider(i)
