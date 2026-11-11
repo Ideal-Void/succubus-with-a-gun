@@ -1,9 +1,12 @@
 extends CharacterBody2D
 
+var bullet : PackedScene = preload("res://scenes/bullet.tscn")
+
 @onready var timer = $Timer
 @onready var healthbar = $Camera2D/hud/HealthBar
 @onready var healthtext = $Camera2D/hud/HealthBar/Number
 @onready var feet = $FootCollider
+@onready var gunmuzzle = $gun/muzzle
 
 var MAX_SPEED = 200.0
 var MAX_AIRJUMPS = 1
@@ -33,6 +36,11 @@ func player_damage(dmg):
 	if HP < 1:
 		DEAD = true
 
+func shoot():
+	var b = bullet.instantiate()
+	owner.add_child(b)
+	b.transform = gunmuzzle.global_transform
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if is_on_floor() and not DEAD:
@@ -53,7 +61,14 @@ func _physics_process(delta: float) -> void:
 		MAX_SPEED = 300.0
 	else:
 		MAX_SPEED = 200.0
-
+		
+	if Input.is_action_just_pressed("player_attack"):
+		shoot()
+	
+	# Change sprite if rotation is greater than half Pi, indicating it's pointing leftward instead of rightward.
+	var dirname = "left" if abs((get_global_mouse_position() - global_position).angle()) > (PI/2) else "right"
+	$Sprite2D.texture = load("res://assets/sprites/samirah_" + dirname + ".png")
+	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("player_left", "player_right")
@@ -67,12 +82,6 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		if SPEED > 0:
 			SPEED -= ACCEL
-			
-	if feet.is_colliding():
-		for i in feet.get_collision_count():
-			collided_with = feet.get_collider(i)
-			if collided_with.is_in_group("stompable"):
-				Game.stomp_damage(1)
 
 	move_and_slide()
 

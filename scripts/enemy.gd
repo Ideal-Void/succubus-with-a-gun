@@ -13,7 +13,7 @@ var collided_with
 var HP = 1
 var CAN_HIT = true
 
-func stomp_damage(dmg):
+func enemy_damage(dmg):
 	HP -= dmg
 	if HP < 1 and CAN_HIT:
 		speed = 0
@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		
 		for i in castL.get_collision_count():
 			collided_with = castL.get_collider(i)
-			if collided_with.is_in_group("player"):
+			if collided_with.is_in_group("player") and CAN_HIT == true:
 				Game.player_damage(1)
 	
 	if castR.is_colliding():

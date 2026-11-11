@@ -9,7 +9,7 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ra3w"]
 
-[node name="enemy" type="CharacterBody2D" unique_id=521173229 groups=["stompable"]]
+[node name="enemy" type="CharacterBody2D" unique_id=521173229 groups=["enemies"]]
 script = ExtResource("1_md0e3")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=830177317]
