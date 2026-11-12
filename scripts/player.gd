@@ -66,7 +66,7 @@ func _physics_process(delta: float) -> void:
 		shoot()
 	
 	# Change sprite if rotation is greater than half Pi, indicating it's pointing leftward instead of rightward.
-	var dirname = "left" if abs((get_global_mouse_position() - global_position).angle()) > (PI/2) else "right"
+	var dirname = "left" if abs(Game.direction.angle()) > (PI/2) else "right"
 	$Sprite2D.texture = load("res://assets/sprites/samirah_" + dirname + ".png")
 	
 	# Get the input direction and handle the movement/deceleration.
