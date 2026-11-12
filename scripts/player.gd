@@ -83,6 +83,8 @@ func _physics_process(delta: float) -> void:
 		if SPEED > 0:
 			SPEED -= ACCEL
 
+	if global_position.y > 1000:
+		global_position.y = -1000
 	move_and_slide()
 
 
